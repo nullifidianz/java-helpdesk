@@ -1,11 +1,12 @@
 package com.nullifidianz.helpdesk.Model;
 
-import org.springframework.data.annotation.Id;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,20 +20,21 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "tb_name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "tb_email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "tb_password")
-    private String password;
+    @Column(name = "password_hash", nullable = false)
+    private String passwordHash;
 
-    @Column(name = "tb_role")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
     private UserRoles role;
 
 }
